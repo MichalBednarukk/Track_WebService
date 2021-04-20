@@ -1,23 +1,18 @@
 package com.bednaruk.Track_WebService.service;
 
-import com.bednaruk.Track_WebService.repository.UserRepo;
 import com.bednaruk.Track_WebService.entity.UserApp;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.bednaruk.Track_WebService.repository.UserRepo;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
-@RestController
+@AllArgsConstructor
+@Service
 public class UserService {
-
     UserRepo userRepo;
-
-    @Autowired
-    public UserService(UserRepo userRepo){
-        this.userRepo = userRepo;
-    }
 
 
     public ResponseEntity userRegister(UserApp userApp) {
