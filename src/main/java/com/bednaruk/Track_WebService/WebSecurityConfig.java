@@ -33,17 +33,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 @Override
 protected void configure(HttpSecurity http) throws Exception {
         try{
-    http.authorizeRequests()
-            .antMatchers("/registry").permitAll()
-            .antMatchers("/trackadd").authenticated()
-            .and()
-            .logout()
-            .and()
-            .formLogin().permitAll()
-            .and()
-            .csrf().disable();
+            http.authorizeRequests()
+                    .antMatchers("/registry").permitAll()
+                    .antMatchers("/trackadd").authenticated()
+                    .and()
+                    .logout()
+                    .and()
+                    .formLogin().permitAll()
+                    .and()
+                    .csrf().disable();
 
-}
+        }
         catch (Exception e){
             e.getMessage();
         }

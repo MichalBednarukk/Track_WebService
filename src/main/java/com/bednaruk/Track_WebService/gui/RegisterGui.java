@@ -3,7 +3,7 @@ package com.bednaruk.Track_WebService.gui;
 
 import com.bednaruk.Track_WebService.entity.UserApp;
 import com.bednaruk.Track_WebService.repository.UserRepo;
-import com.bednaruk.Track_WebService.service.UserService;
+import com.bednaruk.Track_WebService.controller.UserController;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.notification.Notification;
@@ -21,7 +21,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class RegisterGui extends VerticalLayout {
 
     UserRepo userRepo;
-    UserService userService;
+    UserController userController;
 
     Label label;
     TextField textFieldUsername;
@@ -38,9 +38,9 @@ public class RegisterGui extends VerticalLayout {
     }
 
     @Autowired
-    public RegisterGui(UserRepo userRepo, UserService userService) {
+    public RegisterGui(UserRepo userRepo, UserController userController) {
         this.userRepo = userRepo;
-        this.userService = userService;
+        this.userController = userController;
         initialize();
 
 
@@ -49,7 +49,7 @@ public class RegisterGui extends VerticalLayout {
                 if (passwordField.getValue().equals(passwordFieldConfirm.getValue())) {
                     UserApp userApp = new UserApp(textFieldUsername.getValue(), passwordEncoder().encode(passwordField.getValue()), "ROLE_USER");
 
-                    if (this.userService.userRegister(userApp).getStatusCodeValue() == 200) {
+                    if (this.userController.userRegister(userApp).getStatusCodeValue() == 200) {
                         Notification notification = new Notification(
                                 "Register Succesfully", 3000,
                                 Notification.Position.TOP_START);

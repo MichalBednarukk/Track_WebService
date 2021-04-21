@@ -2,7 +2,7 @@ package com.bednaruk.Track_WebService.gui;
 
 import com.bednaruk.Track_WebService.entity.TrackApp;
 import com.bednaruk.Track_WebService.repository.TrackRepo;
-import com.bednaruk.Track_WebService.service.TrackService;
+import com.bednaruk.Track_WebService.controller.TrackController;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.notification.Notification;
@@ -19,7 +19,7 @@ import java.time.LocalDate;
 @Route("trackaddgui")
 public class TrackAddGui extends VerticalLayout {
 
-    TrackService trackService;
+    TrackController trackController;
     TrackRepo trackRepo;
 
 
@@ -30,14 +30,14 @@ public class TrackAddGui extends VerticalLayout {
 
 
     @Autowired
-    public TrackAddGui(TrackRepo trackRepo,TrackService trackService) {
+    public TrackAddGui(TrackRepo trackRepo, TrackController trackController) {
         this.trackRepo = trackRepo;
-        this.trackService = trackService;
+        this.trackController = trackController;
 
         initialize();
 
         addButton.addClickListener(buttonClickEvent -> {
-            if (this.trackService.addTrack(new TrackApp(SecurityContextHolder.getContext().getAuthentication().getName(),trackBody.getValue(),trackName.getValue())).getStatusCodeValue() == 200) {
+            if (this.trackController.addTrack(new TrackApp(SecurityContextHolder.getContext().getAuthentication().getName(),trackBody.getValue(),trackName.getValue())).getStatusCodeValue() == 200) {
                 Notification notification = new Notification(
                         "Track add Succesfully", 3000,
                         Notification.Position.TOP_START);
