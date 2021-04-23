@@ -35,12 +35,12 @@ public class TrackController {
     }
 
     @GetMapping("/get/{id}")
-    public TrackApp getSingleTrack(@PathVariable("id") String id) {
+    public ResponseEntity getSingleTrack(@PathVariable("id") String id) {
         return trackService.getSingleTrack(id);
     }
 
     @GetMapping("/all")
-    public List<TrackApp> getAllTrack(){
+    public ResponseEntity getAllTrack(){
         return trackService.getAllTrack();
     }
 
