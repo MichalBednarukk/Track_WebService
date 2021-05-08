@@ -4,6 +4,7 @@ package com.bednaruk.Track_WebService.gui;
 import com.bednaruk.Track_WebService.entity.UserApp;
 import com.bednaruk.Track_WebService.repository.UserRepo;
 import com.bednaruk.Track_WebService.controller.UserController;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.notification.Notification;
@@ -23,14 +24,13 @@ public class RegisterGui extends VerticalLayout {
     UserRepo userRepo;
     UserController userController;
 
-    Label label;
+    Label labelRegistration;
     TextField textFieldUsername;
     PasswordField passwordField;
     PasswordField passwordFieldConfirm;
     VerticalLayout verticalLayout;
 
     Button buttonRegister;
-
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -54,6 +54,7 @@ public class RegisterGui extends VerticalLayout {
                                 "Register Succesfully", 3000,
                                 Notification.Position.TOP_START);
                         notification.open();
+                        UI.getCurrent().getPage().setLocation("http://localhost:8080/trackaddgui");
                     } else {
                         Notification notification = new Notification(
                                 "Register Unsuccesfull", 3000,
@@ -81,7 +82,7 @@ public class RegisterGui extends VerticalLayout {
 
         verticalLayout = new VerticalLayout();
 
-        label = new Label("Registration");
+        labelRegistration = new Label("Registration");
 
         textFieldUsername = new TextField("Username", "Enter username");
         textFieldUsername.setRequired(true);
@@ -101,7 +102,7 @@ public class RegisterGui extends VerticalLayout {
         notification.open();
 
 
-        verticalLayout.add(label, textFieldUsername, passwordField, passwordFieldConfirm, buttonRegister);
+        verticalLayout.add(labelRegistration, textFieldUsername, passwordField, passwordFieldConfirm, buttonRegister);
         verticalLayout.setAlignItems(Alignment.CENTER);
         verticalLayout.setHeight("100%");
         add(verticalLayout);

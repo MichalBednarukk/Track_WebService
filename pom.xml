@@ -14,7 +14,6 @@
 	<name>Track_WebService</name>
 	<description>Track Web Service project for Spring Boot</description>
 	<properties>
-		<java.version>11</java.version>
 		<vaadin.version>14.2.0</vaadin.version>
 	</properties>
 
@@ -65,12 +64,6 @@
 		<dependency>
 			<groupId>org.testng</groupId>
 			<artifactId>testng</artifactId>
-			<version>RELEASE</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
 			<version>RELEASE</version>
 			<scope>compile</scope>
 		</dependency>
