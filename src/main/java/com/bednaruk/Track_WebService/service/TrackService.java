@@ -21,7 +21,7 @@ public class TrackService {
     private final UserRepo userRepo;
 
 
-    public ResponseEntity addTrack(TrackApp trackApp){
+    public ResponseEntity<?> addTrack(TrackApp trackApp){
 
         Optional<UserApp> userFromDb = userRepo.findByUsername(trackApp.getUsername());
         if (userFromDb.isEmpty()) {
@@ -35,7 +35,7 @@ public class TrackService {
     }
 
 
-    public ResponseEntity getSingleTrack(String id)  {
+    public ResponseEntity<?> getSingleTrack(String id)  {
         Optional<TrackApp> trackFromDb = trackRepo.findById(Long.valueOf(id));
         if(trackFromDb.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
@@ -43,23 +43,23 @@ public class TrackService {
         return ResponseEntity.ok(trackFromDb.get());
     }
 
-    public ResponseEntity getAllTrack() {
+    public ResponseEntity<?> getAllTrack() {
         List<TrackApp> trackApps = trackRepo.findAll();
         return ResponseEntity.ok(trackApps);
     }
 
-    public ResponseEntity deleteSingleTrack(String id) {
+    public ResponseEntity<?> deleteSingleTrack(String id) {
         trackRepo.deleteById(Long.parseLong(id));
         return ResponseEntity.ok(HttpStatus.OK);
     }
-    public ResponseEntity deleteAllTrack() {
+    public ResponseEntity<?> deleteAllTrack() {
         trackRepo.deleteAll();
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
-    public ResponseEntity updateTrack(TrackApp trackApp, Long id) {
+    public ResponseEntity<?> updateTrack(TrackApp trackApp, Long id) {
         Optional<TrackApp> trackAppOptional  = trackRepo.findById(id);
-        if (!trackAppOptional.isPresent())
+        if (trackAppOptional.isEmpty())
             return ResponseEntity.notFound().build();
         trackApp.setId(id);
         trackRepo.save(trackApp);

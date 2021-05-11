@@ -25,32 +25,32 @@ public class TrackController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity addTrack(@RequestBody TrackApp trackApp){
+    public ResponseEntity<?> addTrack(@RequestBody TrackApp trackApp){
       return trackService.addTrack(trackApp);
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity updateTrack(@RequestBody TrackApp trackApp,@PathVariable("id") String id){
+    public ResponseEntity<?> updateTrack(@RequestBody TrackApp trackApp,@PathVariable("id") String id){
         return trackService.updateTrack(trackApp,Long.parseLong(id));
     }
 
     @GetMapping("/get/{id}")
-    public ResponseEntity getSingleTrack(@PathVariable("id") String id) {
+    public ResponseEntity<?> getSingleTrack(@PathVariable("id") String id) {
         return trackService.getSingleTrack(id);
     }
 
     @GetMapping("/all")
-    public ResponseEntity getAllTrack(){
+    public ResponseEntity<?> getAllTrack(){
         return trackService.getAllTrack();
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity deleteSingleTrack(@PathVariable ("id") String id) {
+    public ResponseEntity<?> deleteSingleTrack(@PathVariable ("id") String id) {
         return trackService.deleteSingleTrack(id);
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity deleteAllTrack() {
+    public ResponseEntity<?> deleteAllTrack() {
         return trackService.deleteAllTrack();
     }
 

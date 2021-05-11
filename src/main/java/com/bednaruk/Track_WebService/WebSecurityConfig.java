@@ -35,11 +35,12 @@ protected void configure(HttpSecurity http) throws Exception {
         try{
             http.authorizeRequests()
                     .antMatchers("/registry").permitAll()
-                    .antMatchers("/trackadd").authenticated()
+                    .antMatchers("/trackaddgui").authenticated()
                     .and()
                     .logout()
                     .and()
                     .formLogin().permitAll()
+                    .defaultSuccessUrl("/trackaddgui", true)
                     .and()
                     .csrf().disable();
 
@@ -56,5 +57,4 @@ protected void configure(HttpSecurity http) throws Exception {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
 }
