@@ -12,21 +12,17 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-public class TrackApp {
+public class ChordApp {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NonNull
-    private String username;
+    private String chordName;
 
     @NonNull
-    private String name;
+    private String imageResources;
 
-    @NonNull
-    @Column(columnDefinition = "LONGTEXT")
-    private String body;
-
-    @ManyToMany(mappedBy = "trackApps")
-    private List<ChordApp> chordApps;
+    @ManyToMany
+    private List<TrackApp> trackApps;
 }
