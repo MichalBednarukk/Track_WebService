@@ -16,6 +16,14 @@
 	<properties>
 		<vaadin.version>14.2.0</vaadin.version>
 	</properties>
+	<profiles>
+		<profile>
+			<id>production</id>
+			<properties>
+				<vaadin.productionMode>true</vaadin.productionMode>
+			</properties>
+		</profile>
+	</profiles>
 
 	<dependencies>
 		<dependency>
