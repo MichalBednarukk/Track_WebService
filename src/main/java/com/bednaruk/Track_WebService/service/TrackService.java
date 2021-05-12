@@ -20,8 +20,7 @@ public class TrackService {
     private final TrackRepo trackRepo;
     private final UserRepo userRepo;
 
-
-    public ResponseEntity<?> addTrack(TrackApp trackApp){
+    public ResponseEntity<Object> addTrack(TrackApp trackApp){
 
         Optional<UserApp> userFromDb = userRepo.findByUsername(trackApp.getUsername());
         if (userFromDb.isEmpty()) {
@@ -34,8 +33,7 @@ public class TrackService {
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
-
-    public ResponseEntity<?> getSingleTrack(String id)  {
+    public ResponseEntity<Object>  getSingleTrack(String id)  {
         Optional<TrackApp> trackFromDb = trackRepo.findById(Long.valueOf(id));
         if(trackFromDb.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
@@ -43,21 +41,21 @@ public class TrackService {
         return ResponseEntity.ok(trackFromDb.get());
     }
 
-    public ResponseEntity<?> getAllTrack() {
+    public ResponseEntity<Object>  getAllTrack() {
         List<TrackApp> trackApps = trackRepo.findAll();
         return ResponseEntity.ok(trackApps);
     }
 
-    public ResponseEntity<?> deleteSingleTrack(String id) {
+    public ResponseEntity<Object>  deleteSingleTrack(String id) {
         trackRepo.deleteById(Long.parseLong(id));
         return ResponseEntity.ok(HttpStatus.OK);
     }
-    public ResponseEntity<?> deleteAllTrack() {
+    public ResponseEntity<Object>  deleteAllTrack() {
         trackRepo.deleteAll();
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
-    public ResponseEntity<?> updateTrack(TrackApp trackApp, Long id) {
+    public ResponseEntity<Object>  updateTrack(TrackApp trackApp, Long id) {
         Optional<TrackApp> trackAppOptional  = trackRepo.findById(id);
         if (trackAppOptional.isEmpty())
             return ResponseEntity.notFound().build();

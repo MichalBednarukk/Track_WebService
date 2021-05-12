@@ -25,7 +25,7 @@ UserService userService;
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> userRegister(@RequestBody UserApp userApp) {
+    public ResponseEntity<Object>  userRegister(@RequestBody UserApp userApp) {
         return userService.userRegister(userApp);
     }
 

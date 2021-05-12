@@ -7,6 +7,7 @@ import com.bednaruk.Track_WebService.controller.UserController;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Label;
+import com.vaadin.flow.component.listbox.MultiSelectListBox;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.PasswordField;
@@ -21,7 +22,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Route("registry")
 public class RegisterGui extends VerticalLayout {
 
-    UserRepo userRepo;
     UserController userController;
 
     Label labelRegistration;
@@ -29,6 +29,7 @@ public class RegisterGui extends VerticalLayout {
     PasswordField passwordField;
     PasswordField passwordFieldConfirm;
     VerticalLayout verticalLayout;
+
 
     Button buttonRegister;
 
@@ -38,23 +39,20 @@ public class RegisterGui extends VerticalLayout {
     }
 
     @Autowired
-    public RegisterGui(UserRepo userRepo, UserController userController) {
-        this.userRepo = userRepo;
+    public RegisterGui(UserController userController) {
         this.userController = userController;
+
         initialize();
-
-
         buttonRegister.addClickListener(buttonClickEvent -> {
             if (!textFieldUsername.isEmpty() && !passwordField.isEmpty() && !passwordFieldConfirm.isEmpty()) {
                 if (passwordField.getValue().equals(passwordFieldConfirm.getValue())) {
                     UserApp userApp = new UserApp(textFieldUsername.getValue(), passwordEncoder().encode(passwordField.getValue()), "ROLE_USER");
-
                     if (this.userController.userRegister(userApp).getStatusCodeValue() == 200) {
                         Notification notification = new Notification(
                                 "Register Succesfully", 3000,
                                 Notification.Position.TOP_START);
                         notification.open();
-                        UI.getCurrent().getPage().setLocation("http://localhost:8080/trackaddgui");
+                        UI.getCurrent().getPage().setLocation("/trackaddgui");
                     } else {
                         Notification notification = new Notification(
                                 "Register Unsuccesfull", 3000,

@@ -15,7 +15,7 @@ public class UserService {
     UserRepo userRepo;
 
 
-    public ResponseEntity<?> userRegister(UserApp userApp) {
+    public ResponseEntity<Object>  userRegister(UserApp userApp) {
         Optional<UserApp> userFromDb = userRepo.findByUsername(userApp.getUsername());
         if (userFromDb.isPresent()) {
             return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
