@@ -40,8 +40,8 @@ public class TrackAddGui extends VerticalLayout {
     DatePicker datePicker;
     Select<String> selectOfChords;
 
-    List<ChordApp> listOfSelectedChords;
-    List<ChordApp> listOfAllChords;
+    List<ChordApp> listOfSelectedChords = new ArrayList<>();
+    List<ChordApp> listOfNotSelectedChords = getListOfNotSelectedChords();
 
     @Autowired
     public TrackAddGui(TrackRepo trackRepo, TrackController trackController, ChordRepo chordRepo,ChordController chordController) {
@@ -98,10 +98,12 @@ public class TrackAddGui extends VerticalLayout {
     private int saveInDatabase(TrackApp trackApp, List<ChordApp> listOfSelectedChords) {
         int statusCodeValue = this.trackController.addTrack(trackApp).getStatusCodeValue();
 
-        trackApp.setChordApps(new ArrayList<>());
+        trackApp.setChordApps(new HashSet<>());
+
 
         for (ChordApp chordApp : listOfSelectedChords){
             trackApp.getChordApps().add(chordApp);
+            chordApp.setTrackApps(new HashSet<>());
             chordApp.getTrackApps().add(trackApp);
             statusCodeValue = chordController.addChord(chordApp).getStatusCodeValue();
         }
@@ -109,8 +111,6 @@ public class TrackAddGui extends VerticalLayout {
     }
 
     public void initializeUI() {
-        listOfSelectedChords = new ArrayList<>();
-        listOfAllChords = getListOfAllChords();
 
         datePicker = new DatePicker();
         datePicker.setValue(LocalDate.now());
