@@ -1,10 +1,8 @@
 package com.bednaruk.Track_WebService.entity;
-
 import lombok.*;
-import org.atmosphere.interceptor.AtmosphereResourceStateRecovery;
-
 import javax.persistence.*;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Table
 @NoArgsConstructor
@@ -28,8 +26,14 @@ public class TrackApp {
     @Column(columnDefinition = "LONGTEXT")
     private String body;
 
-    @ManyToMany(mappedBy = "trackApps")
-    private List<ChordApp> chordApps;
+    @ManyToMany(mappedBy = "trackApps",fetch = FetchType.LAZY)
+
+    private Set<ChordApp> chordApps;
+
+    @Override
+    public String toString() {
+        return super.toString();
+    }
 
     public static Builder builder() {
         return new Builder();
@@ -40,7 +44,7 @@ public class TrackApp {
         private String username;
         private String name;
         private String body;
-        private List<ChordApp> chordApps;
+        private Set<ChordApp> chordApps;
 
         public Builder id(Long id) {
             this.id = id;
@@ -58,7 +62,7 @@ public class TrackApp {
             this.body = body;
             return this;
         }
-        public Builder chordApps(List<ChordApp> chordApps) {
+        public Builder chordApps(Set<ChordApp> chordApps) {
             this.chordApps = chordApps;
             return this;
         }
