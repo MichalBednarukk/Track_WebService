@@ -138,11 +138,13 @@ public class TrackAddGui extends VerticalLayout {
         selectOfChords.addValueChangeListener(event -> {
             addToListOfSelectedChords(event.getValue());
             setTextOfChosenChords();//set text in chosenChord label
+            setChordsToSelect();
         });
 
         deleteChordsButton.addClickListener(event -> {
             removeLastFromListOfSelectedChords();
             setTextOfChosenChords();//set text in chosenChord label
+            setChordsToSelect();
         });
 
         VerticalLayout verticalLayout = new VerticalLayout();
@@ -154,33 +156,36 @@ public class TrackAddGui extends VerticalLayout {
     }
 
     private void setChordsToSelect(){
-        selectOfChords.setItems(listOfAllChords.stream().map(ChordApp::getChordName).sorted().collect(Collectors.toList()));
+        selectOfChords.clear();
+        selectOfChords.setItems(listOfNotSelectedChords.stream().map(ChordApp::getChordName).sorted().collect(Collectors.toList()));
     }
-    private List<ChordApp> getListOfAllChords() {
+    private List<ChordApp> getListOfNotSelectedChords() {
+        assert chordRepo != null;
         return chordRepo.findAll();
     }
 
-    private List<ChordApp> getListOfSelectedChords() {
-        return listOfSelectedChords;
-    }
-
     private void addToListOfSelectedChords(String chordName) {
-        List<ChordApp> toSort = new ArrayList<>(listOfAllChords);
-        for (ChordApp chordApp : toSort) {
-            if (chordApp.getChordName().equals(chordName)) {
-                listOfSelectedChords.add(chordApp);
+        if(chordName != null){
+        List<ChordApp> toSort = new ArrayList<>(listOfNotSelectedChords);
+        int toDeleteChord=0;
+        for (int i = 0; i < toSort.size(); i++) {
+            if (toSort.get(i).getChordName().equals(chordName)){
+                toDeleteChord = i;
+                listOfSelectedChords.add(toSort.get(i));
             }
         }
-    }
+        listOfNotSelectedChords.remove(toDeleteChord);
+    }}
 
     private void removeLastFromListOfSelectedChords() {
-        listOfSelectedChords.remove(listOfSelectedChords.size() - 1);
+        int last = listOfSelectedChords.size()-1;
+        listOfNotSelectedChords.add(listOfSelectedChords.get(last));
+        listOfSelectedChords.remove(last);
     }
 
     private void setTextOfChosenChords() {
         chosenChords.removeAll();
-        for (ChordApp chordApp : getListOfSelectedChords()
-        ) {
+        for (ChordApp chordApp : listOfSelectedChords) {
             chosenChords.add(chordApp.getChordName() + ", ");
         }
     }
