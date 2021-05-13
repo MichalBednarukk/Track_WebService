@@ -5,13 +5,12 @@ import com.bednaruk.Track_WebService.entity.UserApp;
 import com.bednaruk.Track_WebService.repository.TrackRepo;
 import com.bednaruk.Track_WebService.repository.UserRepo;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 
 @Service
@@ -42,7 +41,7 @@ public class TrackService {
     }
 
     public ResponseEntity<Object>  getAllTrack() {
-        List<TrackApp> trackApps = trackRepo.findAll();
+        Set<TrackApp> trackApps = trackRepo.getAll();
         return ResponseEntity.ok(trackApps);
     }
 
