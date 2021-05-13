@@ -212,7 +212,6 @@
 			</plugin>
 		</plugins>
 	</build>
-
 	<profiles>
 		<profile>
 			<!-- Production mode is activated using -Pproduction -->
@@ -250,7 +249,6 @@
 				</plugins>
 			</build>
 		</profile>
-
 		<profile>
 			<id>it</id>
 			<build>
@@ -275,7 +273,6 @@
 							</execution>
 						</executions>
 					</plugin>
-
 					<!-- Runs the integration tests (*IT) after the server is started -->
 				</plugins>
 			</build>
