@@ -1,9 +1,11 @@
 package com.bednaruk.Track_WebService.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Table
 @NoArgsConstructor
@@ -23,8 +25,12 @@ public class ChordApp {
     @NonNull
     private String imageResources;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    private List<TrackApp> trackApps;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "Track_Chords",
+            joinColumns = { @JoinColumn(name = "Chord_ID") },
+            inverseJoinColumns = { @JoinColumn(name = "Track_ID" ) })
+    @JsonIgnore
+    private Set<TrackApp> trackApps;
 
     public static Builder builder() {
         return new Builder();
@@ -33,7 +39,7 @@ public class ChordApp {
         private Long id;
         private String chordName;
         private String imageResources;
-        private List<TrackApp> trackApps;
+        private Set<TrackApp> trackApps;
 
 
         public Builder chordName(Long id) {
@@ -48,7 +54,7 @@ public class ChordApp {
             this.imageResources = imageResources;
             return this;
         }
-        public Builder trackApps(List<TrackApp> trackApps) {
+        public Builder trackApps(Set<TrackApp> trackApps) {
             this.trackApps = trackApps;
             return this;
         }
