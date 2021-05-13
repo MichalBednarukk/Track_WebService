@@ -23,7 +23,7 @@ public class TrackService {
 
         Optional<UserApp> userFromDb = userRepo.findByUsername(trackApp.getUsername());
         if (userFromDb.isEmpty()) {
-            return ResponseEntity.ok(HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>("Unauthorized", HttpStatus.UNAUTHORIZED);
         }
         if(trackApp.getBody().isEmpty() || trackApp.getName().isEmpty()){
             return ResponseEntity.badRequest().build();
