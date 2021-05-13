@@ -6,6 +6,7 @@ import com.bednaruk.Track_WebService.entity.TrackApp;
 import com.bednaruk.Track_WebService.repository.ChordRepo;
 import com.bednaruk.Track_WebService.repository.TrackRepo;
 import com.bednaruk.Track_WebService.controller.TrackController;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.html.Label;
@@ -20,13 +21,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
-@Route("trackaddgui")
+@Route("trackAddGui")
 public class TrackAddGui extends VerticalLayout {
 
     TrackController trackController;
@@ -53,7 +52,25 @@ public class TrackAddGui extends VerticalLayout {
         initializeUI();//initialize interface and fields;
 
         addButton.addClickListener(buttonClickEvent -> {
-
+            if(chosenChords.getText().isEmpty()) {
+                Notification notification = new Notification(
+                        "Add Chords", 2000,
+                        Notification.Position.TOP_START);
+                notification.open();
+            }
+            if(trackName.getValue().isEmpty()){
+                Notification notification = new Notification(
+                        "Add Title", 2000,
+                        Notification.Position.TOP_START);
+                notification.open();
+            }
+            if(trackBody.getValue().isEmpty()){
+                Notification notification = new Notification(
+                        "Add Lyrics", 2000,
+                        Notification.Position.TOP_START);
+                notification.open();
+            }
+            else {
             TrackApp trackApp = TrackApp.builder()
                     .name(trackName.getValue())
                     .body(trackBody.getValue())
@@ -64,16 +81,17 @@ public class TrackAddGui extends VerticalLayout {
 
             if (statusCodeValue == 200) {
                 Notification notification = new Notification(
-                        "Track add Succesfully", 3000,
+                        "Track add Successfully", 3000,
                         Notification.Position.TOP_START);
                 notification.open();
+                UI.getCurrent().getPage().setLocation("/home");
             } else {
                 Notification notification = new Notification(
-                        "Track add Unsuccesfull", 3000,
+                        "Track add Unsuccessfully", 3000,
                         Notification.Position.TOP_START);
                 notification.open();
             }
-        });
+        }});
 
     }
 
