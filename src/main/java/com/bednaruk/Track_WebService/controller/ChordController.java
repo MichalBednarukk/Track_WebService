@@ -7,7 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/chord")
 public class ChordController {
     ChordService chordService;
 
@@ -15,18 +14,22 @@ public class ChordController {
     public ChordController(ChordService chordService) {
         this.chordService = chordService;
     }
-    @PostMapping("/add")
+    @PostMapping("/chord")
     public ResponseEntity<Object> addChord(@RequestBody ChordApp chordApp){
         return chordService.addChord(chordApp);
     }
 
-    @GetMapping("/all")
+    @GetMapping("/chords")
     public ResponseEntity<Object> getAllChord(){
         return chordService.getAllChord();
     }
 
-    @GetMapping("/get/{id}")
+    @GetMapping("/chord/{id}")
     public ResponseEntity<Object> getSingleChord(@PathVariable("id") String id) {
         return chordService.getSingleChord(id);
+    }
+    @GetMapping("/chords/track/{id}")
+    public ResponseEntity<Object> getChordsByTrackID(@PathVariable("id") String id) {
+        return chordService.getChordsByTrackID(id);
     }
 }

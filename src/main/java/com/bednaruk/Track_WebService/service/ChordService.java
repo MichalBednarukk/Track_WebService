@@ -40,4 +40,8 @@ public class ChordService {
         }
         return ResponseEntity.ok(chordApp.get());
     }
+    public ResponseEntity<Object> getChordsByTrackID(String id){
+        List<ChordApp> chordApps = chordRepo.findChordsByTrackID(Long.valueOf(id));
+        return ResponseEntity.ok(chordApps);
+    }
 }

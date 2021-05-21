@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping("/track")
 public class TrackController {
 
     TrackService trackService;
@@ -22,34 +21,36 @@ public class TrackController {
         this.userRepo = userRepo;
     }
 
-    @PostMapping("/add")
+    @PostMapping("/track")
     public ResponseEntity<Object>  addTrack(@RequestBody TrackApp trackApp){
       return trackService.addTrack(trackApp);
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/track/{id}")
     public ResponseEntity<Object>  updateTrack(@RequestBody TrackApp trackApp,@PathVariable("id") String id){
         return trackService.updateTrack(trackApp,Long.parseLong(id));
     }
 
-    @GetMapping("/get/{id}")
+    @GetMapping("/track/{id}")
     public ResponseEntity<Object>  getSingleTrack(@PathVariable("id") String id) {
         return trackService.getSingleTrack(id);
     }
 
-    @GetMapping("/all")
+    @GetMapping("/tracks")
     public ResponseEntity<Object>  getAllTrack(){
         return trackService.getAllTrack();
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/track/{id}")
     public ResponseEntity<Object>  deleteSingleTrack(@PathVariable ("id") String id) {
         return trackService.deleteSingleTrack(id);
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping("/track")
     public ResponseEntity<Object>  deleteAllTrack() {
         return trackService.deleteAllTrack();
     }
+
+
 
 }

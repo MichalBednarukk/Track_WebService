@@ -15,5 +15,4 @@ import java.util.Set;
 public interface TrackRepo extends JpaRepository<TrackApp, Long> {
     @Query(value = "SELECT t FROM TrackApp t JOIN FETCH t.chordApps c")
     Set<TrackApp> getAll();
-
 }
